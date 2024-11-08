@@ -1,0 +1,39 @@
+{
+  "name": "grain-sand-net-dev",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rollup -c --compact",
+    "build-watch": "rollup -c --watch",
+    "npm:publish": "cd dist && npm publish --access public --registry https://registry.npmjs.org/ --proxy=http://172.15.0.1:8118",
+    "test:read": "vitest read"
+  },
+  "dependencies": {
+    "grain-sand-base": "^0.1.7",
+    "grain-sand-data": "0.1.5",
+    "grain-sand-web-fs": "0.1.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/mockjs": "^1.0.10",
+    "@types/node": "^20.11.28",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/browser": "^1.6.0",
+    "@vue/test-utils": "^2.4.5",
+    "@vue/tsconfig": "^0.5.1",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.20.2",
+    "rollup": "^4.14.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "~5.4.0",
+    "vite": "^5.1.6",
+    "vitest": "^1.6.0",
+    "webdriverio": "^8.39.1"
+  },
+  "type": "module"
+}

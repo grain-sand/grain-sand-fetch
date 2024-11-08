@@ -1,0 +1,33 @@
+{
+  "name": "grain-sand-fetch",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "grain-sand-base": "^0.1.7",
+    "grain-sand-data": "0.1.5",
+    "grain-sand-web-fs": "0.1.6"
+  },
+  "license": "MIT",
+  "keywords": [
+    "read web files",
+    "download web files",
+    "web resources",
+    "网络文件读取",
+    "网络文件下载"
+  ],
+  "homepage": "https://gitee.com/grain-sand/grain-sand-fetch",
+  "preferred-homepages": [
+    "https://github.com/grain-sand/grain-sand-fetch"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grain-sand/grain-sand-fetch"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
