@@ -1,20 +1,9 @@
-import {ReadFetchOptions, ReadProcessFn} from "./IReadFetchOptions";
+import {ReadFetchOption, ReadProcessFn} from "./IReadFetchOption";
 import {IResponse, ReadFetchTypeEnum} from "./IResponse";
-import {
-	Base64DataURL,
-	BlobTypes,
-	getExtensionMime,
-	parseMime,
-	parseMimeExt,
-	readBlob,
-	SimpleDataReader
-} from "grain-sand-data";
-import {parseArgs} from "./private/parseArgs";
+import {Base64DataURL, BlobTypes, parseMimeExt, readBlob, SimpleDataReader} from "grain-sand-data";
+import {checkInitDefault, parseArgs} from "./private/parseArgs";
 import {EmptyBodyError, HttpStatusError, RequestSizeLimitExceededError} from "../error";
 import {createFullStream, streamToBlob} from "./private/createFullStream";
-
-
-const console = (top as any).console;
 
 /**
  *
@@ -34,34 +23,34 @@ const console = (top as any).console;
  *
  * - `throws` 可能抛出`HttpStatusError`
  */
-export function readFetch(url: string | URL, type: BlobTypes.Image, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<HTMLImageElement>;
+export function readFetch(url: string | URL, type: BlobTypes.Image, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<HTMLImageElement>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Bitmap, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<ImageBitmap>;
+export function readFetch(url: string | URL, type: BlobTypes.Bitmap, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<ImageBitmap>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Base64, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<Base64DataURL>;
+export function readFetch(url: string | URL, type: BlobTypes.Base64, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<Base64DataURL>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Svg, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<HTMLUnknownElement>;
+export function readFetch(url: string | URL, type: BlobTypes.Svg, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<HTMLUnknownElement>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Text, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<string>;
+export function readFetch(url: string | URL, type: BlobTypes.Text, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<string>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Html, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<Document>;
+export function readFetch(url: string | URL, type: BlobTypes.Html, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<Document>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Xml, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<XMLDocument>;
+export function readFetch(url: string | URL, type: BlobTypes.Xml, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<XMLDocument>;
 
-export function readFetch(url: string | URL, type: BlobTypes.Json, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<any>;
+export function readFetch(url: string | URL, type: BlobTypes.Json, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<any>;
 
-export function readFetch(url: string | URL, type: BlobTypes.SimpleData, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<SimpleDataReader>;
+export function readFetch(url: string | URL, type: BlobTypes.SimpleData, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<SimpleDataReader>;
 
-export function readFetch(url: string | URL, type: ReadFetchTypeEnum.Blob, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<IResponse<Blob>>;
+export function readFetch(url: string | URL, type: ReadFetchTypeEnum.Blob, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<IResponse<Blob>>;
 
-export function readFetch(url: string | URL, type: ReadFetchTypeEnum.Stream, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<IResponse<ReadableStream<Uint8Array>>>;
+export function readFetch(url: string | URL, type: ReadFetchTypeEnum.Stream, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<IResponse<ReadableStream<Uint8Array>>>;
 
-export function readFetch(url: string | URL, options?: ReadFetchOptions, readProcessFn?: ReadProcessFn): Promise<IResponse>;
+export function readFetch(url: string | URL, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<IResponse>;
 
 export async function readFetch(url: string | URL, ...args: any[]): Promise<any> {
-
-	const {options, maxSize, requestType, readProcessFn} = parseArgs(url, args);
-	const response = await fetch(url, options);
+	checkInitDefault();
+	const {option, maxSize, requestType, readProcessFn} = parseArgs(url, args);
+	const response = await fetch(url, option);
 	if (!response.ok) {
 		throw new HttpStatusError(response.status);
 	}
@@ -79,7 +68,7 @@ export async function readFetch(url: string | URL, ...args: any[]): Promise<any>
 	}
 
 	const dataHeader = await reader.read();
-	const stream = createFullStream(reader, dataHeader as any, maxSize, readProcessFn);
+	const stream = createFullStream(reader, dataHeader as any, maxSize, contentLength, readProcessFn!);
 	const blob = !isStream ? await streamToBlob(stream, contentType as any) : undefined;
 	if (requestType as number > 0) {
 		return await readBlob(blob!, requestType as any);
@@ -103,3 +92,4 @@ export async function readFetch(url: string | URL, ...args: any[]): Promise<any>
 		type: ReadFetchTypeEnum.Stream
 	};
 }
+

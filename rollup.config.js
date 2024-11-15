@@ -30,8 +30,7 @@ const jsConfig = (suffix, external, plugins = []) => ({
 		esbuild(),
 		terser(),
 		...plugins
-	],
-	sourceMap: true
+	]
 })
 
 export default [

@@ -5,7 +5,7 @@ export const enum ReadFetchTypeEnum {
 	Stream = -2,
 }
 
-export type ReadNetType = BlobTypes | ReadFetchTypeEnum;
+export type ReadFetchType = BlobTypes | ReadFetchTypeEnum;
 
 export type ResponseResult =
 	Blob

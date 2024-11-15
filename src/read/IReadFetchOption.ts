@@ -1,6 +1,6 @@
-export const DefaultMaxSize: number = 1024 * 1024 * 100;
 
-export interface IReadFetchOptions extends RequestInit {
+
+export interface IReadFetchOption extends RequestInit {
 
 	/**
 	 * 当限定了返回类型时,响应数据超出此大小将回抛出 RequestSizeLimitExceededError
@@ -20,4 +20,4 @@ export type ReadProcessFn = (loadedLength: number, contentLength: number) => voi
  * 当类型为`IReadFetchOptions`时，将以`RequestInit`的选项请求.将以`get`请求数据
  * 默认以`get`请求数据
  */
-export type ReadFetchOptions = URLSearchParams | FormData | IReadFetchOptions | ReadProcessFn;
+export type ReadFetchOption = URLSearchParams | FormData | IReadFetchOption | ReadProcessFn;

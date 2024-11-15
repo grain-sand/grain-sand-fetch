@@ -1700,21 +1700,21 @@ grain-sand-base@0.1.7, grain-sand-base@^0.1.7:
   resolved "https://registry.npmmirror.com/grain-sand-base/-/grain-sand-base-0.1.7.tgz#a895e06993b8dece90e781d1cc7ebc0a445ec8ac"
   integrity sha512-JB6VOOMwFIArBbTAHIqk5m1X0jzF28xLDM17HLdGQEtwzWXicIQBBuGgSnPzdPVQcDaqgV92LUQjn2CvMFtoSQ==
 
-grain-sand-data@0.1.5:
-  version "0.1.5"
-  resolved "https://registry.npmjs.org/grain-sand-data/-/grain-sand-data-0.1.5.tgz#ee2759a25d821a8447d2862ec5b67086be9e28d2"
-  integrity sha512-IDJo0LpVIjuTnopSlFVNoZeDNaxOF2Qk+tPItQ0MIK9rwrpSlunJDePZXnDW065bhPtLIiFgHQtlNLuX58+2QQ==
+grain-sand-data@0.1.6:
+  version "0.1.6"
+  resolved "https://registry.npmjs.org/grain-sand-data/-/grain-sand-data-0.1.6.tgz#0eac4bbd8e47d28df57b09430faf42427d851144"
+  integrity sha512-vAMQI4EWAb7X5MLFVxTGijnP54IDAUSdzkJI0PejRiim3gu4M+ou2txS/V+M5gkKRmU6eduezQ70L2+AvftG9A==
   dependencies:
     grain-sand-base "^0.1.7"
     js-base64 "^3.7.7"
 
-grain-sand-web-fs@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.npmjs.org/grain-sand-web-fs/-/grain-sand-web-fs-0.1.6.tgz#7a92e84d7c04451ce6eb4c7ae1cd88863c507caf"
-  integrity sha512-PduIIt/KT4fkotLjNTMySbaz2UA/jOAOVw5ZyiMQ/ibE8xliZNxencyDycl2jZhKpqnJxO5P9pbpmyy5hzwCUw==
+grain-sand-web-fs@0.1.7:
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/grain-sand-web-fs/-/grain-sand-web-fs-0.1.7.tgz#7ecf87211168d8a4753ed4513f816455adb75729"
+  integrity sha512-kgXywxKI4esdp3+sfXfnUPVxp4Wwe5H5t1Pfnsbkr6fc17bgLzZYcb+f5j+F2AmZtN+jhK5ryYvlhgRyM4IeMw==
   dependencies:
     grain-sand-base "0.1.7"
-    grain-sand-data "0.1.5"
+    grain-sand-data "0.1.6"
 
 grapheme-splitter@^1.0.2:
   version "1.0.4"

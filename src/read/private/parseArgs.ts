@@ -1,46 +1,56 @@
-import {ReadNetType} from "../IResponse";
+import {ReadFetchType} from "../IResponse";
 import {isFunction, isNumber, isObject} from "grain-sand-base";
-import {DefaultMaxSize, IReadFetchOptions, ReadProcessFn} from "../IReadFetchOptions";
+import {IReadFetchOption, ReadProcessFn} from "../IReadFetchOption";
 import {BlobTypes, MimeTypes} from "grain-sand-data";
 
-const bitmapAccept = [MimeTypes.SVG, MimeTypes.PNG, MimeTypes.JPEG, MimeTypes.GIF, MimeTypes.WebP];
+export const DefaultMaxSize: number = 1024 * 1024 * 100;
+
+export const DefaultReadOption: IReadFetchOption = {};
+
+export const DefaultReadOptionMap: Map<ReadFetchType | undefined, IReadFetchOption> = new Map();
+
+let initializedDefaultOption: boolean;
+
+const bitmapAccept = [MimeTypes.PNG, MimeTypes.JPEG, MimeTypes.GIF, MimeTypes.WebP];
 
 const AcceptMap: Map<BlobTypes, string[]> = new Map([
 	[BlobTypes.Json, [MimeTypes.JSON]],
 	[BlobTypes.Bitmap, bitmapAccept],
-	[BlobTypes.Image, [MimeTypes.SVG, ...bitmapAccept, "image/*"]],
+	[BlobTypes.Image, [...bitmapAccept, MimeTypes.SVG, "image/*"]],
 	[BlobTypes.Xml, [MimeTypes.XML]],
 	[BlobTypes.Svg, [MimeTypes.SVG]],
 ]);
 
 export interface IParsedArgs {
-	options: IReadFetchOptions,
+	option: IReadFetchOption,
 	maxSize: number,
-	requestType?: ReadNetType,
+	requestType?: ReadFetchType,
 	readProcessFn?: ReadProcessFn
 }
 
+
 export function parseArgs(url: string | URL, args: any[]): Readonly<IParsedArgs> {
 	let i = 0;
-	const requestType: ReadNetType | undefined = isNumber(args[i]) ? args[i++] as ReadNetType : undefined;
+	const requestType: ReadFetchType | undefined = isNumber(args[i]) ? args[i++] as ReadFetchType : undefined;
+	const defaultOptions = {...DefaultReadOption, ...DefaultReadOptionMap.get(requestType)}
 	let params: any = args[i] instanceof URLSearchParams ? args[i++] as URLSearchParams : undefined;
 	let formData = args[i] instanceof FormData ? args[i++] as FormData : undefined;
-	const options = checkOptions(isObject(args[i]) ? args[i++] : {}, url, params, formData);
-	const readProcessFn = isFunction(args[i]) ? args[i++] as ReadProcessFn : undefined;
-	const maxSize = isNumber(options.maxSize) ? options.maxSize as number : DefaultMaxSize;
-	delete options.maxSize;
-	if (!options.headers['Accept'] && AcceptMap.has(requestType as any)) {
-		(options.headers['Accept'] = AcceptMap.get(requestType as any));
+	const option = checkOptions(isObject(args[i]) ? {...defaultOptions, ...args[i++]} : {...defaultOptions}, url, params, formData);
+	const readProcessFn: ReadProcessFn | undefined = isFunction(args[i]) ? args[i++] as ReadProcessFn : undefined;
+	const maxSize = option.maxSize > 0 ? option.maxSize : DefaultMaxSize;
+	'maxSize' in option && delete option.maxSize;
+	if (!option.headers['Accept'] && AcceptMap.has(requestType as any)) {
+		(option.headers['Accept'] = AcceptMap.get(requestType as any));
 	}
 	return {
 		requestType,
-		options,
+		option,
 		readProcessFn,
 		maxSize
 	}
 }
 
-function checkOptions(options: IReadFetchOptions | any, url: string | URL, params?: URLSearchParams, formData?: FormData): any {
+function checkOptions(options: IReadFetchOption | any, url: string | URL, params?: URLSearchParams, formData?: FormData): any {
 	//数据体
 	if (options.body) {
 		if (options.body instanceof FormData) {
@@ -59,4 +69,14 @@ function checkOptions(options: IReadFetchOptions | any, url: string | URL, param
 	formData && !headers!["Content-Type"] && (headers!["Content-Type"] = "multipart/form-data");
 
 	return options;
+}
+
+export function checkInitDefault() {
+	if (initializedDefaultOption) return;
+	initializedDefaultOption = true;
+	isNaN(DefaultReadOption.maxSize!) && (DefaultReadOption.maxSize = DefaultMaxSize);
+	const cacheOption: IReadFetchOption = {cache: 'force-cache'};
+	for (const type of [BlobTypes.Image, BlobTypes.Image, BlobTypes.Svg, BlobTypes.Base64]) {
+		DefaultReadOptionMap.has(type) || DefaultReadOptionMap.set(type, cacheOption);
+	}
 }
