@@ -1695,26 +1695,26 @@ graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   resolved "https://registry.npmmirror.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
 
-grain-sand-base@0.1.7, grain-sand-base@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.npmmirror.com/grain-sand-base/-/grain-sand-base-0.1.7.tgz#a895e06993b8dece90e781d1cc7ebc0a445ec8ac"
-  integrity sha512-JB6VOOMwFIArBbTAHIqk5m1X0jzF28xLDM17HLdGQEtwzWXicIQBBuGgSnPzdPVQcDaqgV92LUQjn2CvMFtoSQ==
+grain-sand-base@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/grain-sand-base/-/grain-sand-base-0.1.11.tgz#3ef7e2b41d2da21fb76ece013edb54167d40028f"
+  integrity sha512-cS/h9nDdwcfCsudvfjXlb115Wim98wdQDJNos4Iz7FKp67wF9j0BYzwTGWmIk08ZUXO0iH+6yrfdzwQCgM7Z3g==
 
-grain-sand-data@0.1.6:
-  version "0.1.6"
-  resolved "https://registry.npmjs.org/grain-sand-data/-/grain-sand-data-0.1.6.tgz#0eac4bbd8e47d28df57b09430faf42427d851144"
-  integrity sha512-vAMQI4EWAb7X5MLFVxTGijnP54IDAUSdzkJI0PejRiim3gu4M+ou2txS/V+M5gkKRmU6eduezQ70L2+AvftG9A==
+grain-sand-data@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/grain-sand-data/-/grain-sand-data-0.1.7.tgz#70e8fa662062df9137f3b4d1b96771361d12ed70"
+  integrity sha512-zb/mNOqmacDyFbt15y0eElN/90KtDl487Y/LQD4WVRkCNKwZkYzeMkh/xDSXny8sau1DKJ6keV5B4xfUhcFgeQ==
   dependencies:
-    grain-sand-base "^0.1.7"
+    grain-sand-base "^0.1.11"
     js-base64 "^3.7.7"
 
-grain-sand-web-fs@0.1.7:
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/grain-sand-web-fs/-/grain-sand-web-fs-0.1.7.tgz#7ecf87211168d8a4753ed4513f816455adb75729"
-  integrity sha512-kgXywxKI4esdp3+sfXfnUPVxp4Wwe5H5t1Pfnsbkr6fc17bgLzZYcb+f5j+F2AmZtN+jhK5ryYvlhgRyM4IeMw==
+grain-sand-web-fs@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.npmjs.org/grain-sand-web-fs/-/grain-sand-web-fs-0.1.8.tgz#6e145048660b14b1663544a1448b97b28f7fcca4"
+  integrity sha512-Xkj1Y2s1CLLXX+l/Mv9fXN5h99Fn6GhPYpIPfSOBMrr/XAko0uokHrLFQ/Kcao3hkc3lBM+abe4QsElhJ0aCdA==
   dependencies:
-    grain-sand-base "0.1.7"
-    grain-sand-data "0.1.6"
+    grain-sand-base "^0.1.11"
+    grain-sand-data "^0.1.7"
 
 grapheme-splitter@^1.0.2:
   version "1.0.4"

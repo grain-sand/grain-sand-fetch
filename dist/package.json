@@ -1,14 +1,14 @@
 {
   "name": "grain-sand-fetch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "types": "lib/index.d.ts",
   "dependencies": {
-    "grain-sand-base": "^0.1.7",
-    "grain-sand-data": "0.1.6",
-    "grain-sand-web-fs": "0.1.7"
+    "grain-sand-base": "^0.1.11",
+    "grain-sand-data": "^0.1.7",
+    "grain-sand-web-fs": "^0.1.8"
   },
   "license": "MIT",
   "keywords": [
