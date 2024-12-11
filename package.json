@@ -1,6 +1,6 @@
 {
   "name": "grain-sand-net-dev",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "scripts": {
     "build": "rollup -c --compact",
     "build-watch": "rollup -c --watch",
@@ -8,9 +8,9 @@
     "test:read": "vitest read"
   },
   "dependencies": {
-    "grain-sand-base": "^0.1.11",
-    "grain-sand-data": "^0.1.7",
-    "grain-sand-web-fs": "^0.1.8"
+    "grain-sand-base": "*",
+    "grain-sand-data": "latest",
+    "grain-sand-web-fs": "latest"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.0",
