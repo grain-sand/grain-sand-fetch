@@ -1,6 +1,6 @@
 {
   "name": "grain-sand-net-dev",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "scripts": {
     "build": "rollup -c --compact",
     "build-watch": "rollup -c --watch",

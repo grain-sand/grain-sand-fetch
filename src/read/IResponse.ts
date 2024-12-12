@@ -24,6 +24,8 @@ export interface IResponse<T extends ResponseResult = any> extends Readonly<IExt
 	readonly stream?: ReadableStream
 	readonly blob?: Blob
 	readonly result: T
+	readonly headers: Headers
+	readonly contentType: string
 }
 
 

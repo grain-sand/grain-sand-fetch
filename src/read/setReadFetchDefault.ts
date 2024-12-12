@@ -32,3 +32,7 @@ export function setReadFetchDefault(defaultOption: IReadFetchOption, ...types: R
 		DefaultReadOptionMap.set(type, defaultOption);
 	}
 }
+
+export function getReadFetchDefault(): IReadFetchOption {
+	return DefaultReadOption;
+}

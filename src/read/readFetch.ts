@@ -9,8 +9,8 @@ import {createFullStream, streamToBlob} from "./private/createFullStream";
  *
  * 通过fetch读取数据,返回指定类型的数据,
  * 当`type`为支持的专用类型时,将返回该类型数据,
- * 当`type`为`ReadFetchTypeEnum.Blob`时，将返回`IBlobResponse`
- * 当类型不受支持或超出最大限制数据大小时,将返回`IStreamResponse`
+ * 当`type`为`ReadFetchTypeEnum.Blob`时，将返回`IResponse<Blob>`
+ * 当类型不受支持或超出最大限制数据大小时,将返回`IResponse<ReadableStream<Uint8Array>>`
  *
  * - `url` 请求的地址
  * - `type` 可选,当未指定`type`或指定为通用数据类型时,将根据`数据头`和`Content-Type`进行判断
@@ -41,6 +41,17 @@ export function readFetch(url: string | URL, type: BlobTypes.Json, option?: Read
 
 export function readFetch(url: string | URL, type: BlobTypes.SimpleData, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<SimpleDataReader>;
 
+/**
+ * 通过fetch读取数据,返回指定类型的数据,
+ *
+ *
+ * @param url
+ * @param type 将返回`IResponse<Blob>`
+ * @param option
+ * @param readProcessFn
+ *
+ * @throws 当超过允许的大小时将抛出 `RequestSizeLimitExceededError`
+ */
 export function readFetch(url: string | URL, type: ReadFetchTypeEnum.Blob, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<IResponse<Blob>>;
 
 export function readFetch(url: string | URL, type: ReadFetchTypeEnum.Stream, option?: ReadFetchOption, readProcessFn?: ReadProcessFn): Promise<IResponse<ReadableStream<Uint8Array>>>;
@@ -59,7 +70,6 @@ export async function readFetch(url: string | URL, ...args: any[]): Promise<any>
 	if (!reader || /^\s*0\s*$/.test(stringContentLength!)) {
 		throw new EmptyBodyError();
 	}
-
 	const contentType = response.headers.get('Content-Type');
 	const contentLength = parseInt(stringContentLength!);
 	const isStream = requestType === ReadFetchTypeEnum.Stream;
@@ -88,6 +98,8 @@ export async function readFetch(url: string | URL, ...args: any[]): Promise<any>
 	return {
 		...await parseMimeExt(dataHeader.value!),
 		stream,
+		contentType,
+		headers: response.headers,
 		result: stream,
 		type: ReadFetchTypeEnum.Stream
 	};
